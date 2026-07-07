@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
-import { Button } from './ui/button';
+import { buttonVariants } from './ui/button';
 import { Download, FileText, FileSpreadsheet, Image as ImageIcon, Loader2 } from 'lucide-react';
 import { exportDashboardPNG, exportCSV } from '../services/exportService';
+import { cn } from '../lib/utils';
 
 export default function ExportMenu({ kpis, filters, dataSnapshot }) {
   const [isExporting, setIsExporting] = useState(false);
@@ -25,11 +26,9 @@ export default function ExportMenu({ kpis, filters, dataSnapshot }) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="gap-2" disabled={isExporting}>
-          {isExporting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
-          Xuất dữ liệu
-        </Button>
+      <DropdownMenuTrigger className={cn(buttonVariants({ variant: "outline" }), "gap-2")} disabled={isExporting}>
+        {isExporting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+        Xuất dữ liệu
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel>Tải xuống Dashboard</DropdownMenuLabel>

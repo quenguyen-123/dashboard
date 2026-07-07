@@ -1,12 +1,13 @@
 import React from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
-import { Button } from './ui/button';
+import { buttonVariants } from './ui/button';
 import { Slider } from './ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Badge } from './ui/badge';
 import { Filter, RotateCcw } from 'lucide-react';
 import { ScrollArea } from './ui/scroll-area';
 import { Separator } from './ui/separator';
+import { cn } from '../lib/utils';
 
 export default function Filters({ filters, options, activeCount, onUpdate, onReset }) {
   
@@ -21,26 +22,24 @@ export default function Filters({ filters, options, activeCount, onUpdate, onRes
 
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline" className="gap-2 relative">
-          <Filter className="w-4 h-4" />
-          Bộ lọc
-          {activeCount > 0 && (
-            <span className="absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center bg-primary text-primary-foreground text-xs rounded-full font-bold">
-              {activeCount}
-            </span>
-          )}
-        </Button>
+      <SheetTrigger className={cn(buttonVariants({ variant: "outline" }), "gap-2 relative")}>
+        <Filter className="w-4 h-4" />
+        Bộ lọc
+        {activeCount > 0 && (
+          <span className="absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center bg-primary text-primary-foreground text-xs rounded-full font-bold">
+            {activeCount}
+          </span>
+        )}
       </SheetTrigger>
       
       <SheetContent className="w-full sm:max-w-md p-0 flex flex-col">
         <SheetHeader className="px-6 py-4 border-b">
           <div className="flex items-center justify-between">
             <SheetTitle>Bộ lọc tìm kiếm</SheetTitle>
-            <Button variant="ghost" size="sm" onClick={onReset} className="h-8 gap-2 text-muted-foreground hover:text-foreground">
+            <button onClick={onReset} className="h-8 px-3 gap-2 inline-flex items-center text-sm text-muted-foreground hover:text-foreground rounded-md hover:bg-accent transition-colors">
               <RotateCcw className="w-3.5 h-3.5" />
               Đặt lại
-            </Button>
+            </button>
           </div>
         </SheetHeader>
         
